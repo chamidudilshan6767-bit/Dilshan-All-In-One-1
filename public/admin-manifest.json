@@ -1,0 +1,8 @@
+{
+  "name": "Chamidu's Admin App",
+  "short_name": "AdminApp",
+  "start_url": "/admin-updates.html",
+  "display": "standalone",
+  "background_color": "#0b0e14",
+  "theme_color": "#0d1117"
+}
