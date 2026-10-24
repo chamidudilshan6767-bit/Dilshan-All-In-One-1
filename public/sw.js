@@ -1,6 +1,6 @@
 self.addEventListener('install', (e) => {
   e.waitUntil(
-    caches.open('dilshan-app-v1').then((cache) => {
+    caches.open('dilshan-app-v3').then((cache) => {
       return cache.addAll(['/']);
     })
   );
