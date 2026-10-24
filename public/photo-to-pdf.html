@@ -3,36 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Photo to PDF - Dilshan All In One</title>
+    <title>Photo to PDF Converter</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
-        body { font-family: sans-serif; background: #0b0e14; color: white; padding: 20px; text-align: center; }
-        input, button { margin: 15px 0; padding: 10px; border-radius: 6px; border: none; }
-        button { background: #2f81f7; color: white; font-weight: bold; cursor: pointer; }
+        body { font-family: sans-serif; background: #0d1117; color: #c9d1d9; padding: 20px 15px; display: flex; justify-content: center; }
+        .box { background: #161b22; border: 1px solid #30363d; border-radius: 10px; padding: 20px; width: 100%; max-width: 450px; text-align: center; }
+        a { color: #58a6ff; text-decoration: none; font-size: 13px; }
+        input[type="file"] { margin: 15px 0; color: #8b949e; }
+        button { width: 100%; padding: 10px; background: #1f6feb; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; }
     </style>
 </head>
 <body>
-    <h2>Photo to PDF Converter</h2>
-    <input type="file" id="imageInput" accept="image/*" multiple><br>
-    <button onclick="convertToPDF()">Convert & Download PDF</button>
+    <div class="box">
+        <a href="index.html">← Back to Home</a>
+        <h2 style="color:#fff;">PHOTO TO PDF CONVERTER</h2>
+        <input type="file" id="imgInput" accept="image/*" multiple><br>
+        <button onclick="convert()">CONVERT & DOWNLOAD PDF</button>
+    </div>
 
     <script>
-        async function convertToPDF() {
+        async function convert() {
+            const files = document.getElementById('imgInput').files;
+            if (files.length === 0) return alert('Please select images first!');
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
-            const files = document.getElementById('imageInput').files;
-            
-            if (files.length === 0) return alert('Please select at least one image!');
 
             for (let i = 0; i < files.length; i++) {
-                const imgData = await window.jsPDF.API.processFile ? files[i] : null;
                 const reader = new FileReader();
                 reader.readAsDataURL(files[i]);
-                await new Promise(resolve => {
-                    reader.onload = function(e) {
+                await new Promise(res => {
+                    reader.onload = (e) => {
                         if (i > 0) doc.addPage();
                         doc.addImage(e.target.result, 'JPEG', 10, 10, 180, 160);
-                        resolve();
+                        res();
                     }
                 });
             }
