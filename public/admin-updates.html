@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chamidu's Admin App</title>
+    <link rel="manifest" href="/admin-manifest.json">
+    <style>
+        body {
+            font-family: sans-serif;
+            background: #0b0e14;
+            color: #c9d1d9;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+        .admin-box {
+            width: 100%;
+            max-width: 450px;
+            background: #161b22;
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #30363d;
+        }
+        input, button, select, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 6px;
+            border: 1px solid #30363d;
+            background: #0d1117;
+            color: white;
+            box-sizing: border-box;
+        }
+        button {
+            background: #238636;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-box">
+        <h2>CHAMIDU'S ADMIN APP</h2>
+        
+        <div id="authSection">
+            <h3>Enter Admin Password</h3>
+            <input type="password" id="adminPass" placeholder="Password...">
+            <button onclick="checkPass()">LOGIN TO LIVE STATS</button>
+        </div>
+
+        <div id="dashSection" style="display:none;">
+            <h3>Live Dashboard</h3>
+            <p>Total App Downloads: <b id="dlCount">1</b></p>
+            <hr style="border-color:#30363d;">
+            
+            <h3>Publish Notice / Links</h3>
+            <select>
+                <option>Text Notice Only</option>
+                <option>Photo / File Attachment</option>
+            </select>
+            <textarea placeholder="Type caption or description..."></textarea>
+            <button>PUBLISH TO MAIN FEED</button>
+        </div>
+    </div>
+
+    <script>
+        const SECRET = "#chAmidu_diLshan*600008*#";
+        function checkPass() {
+            const pass = document.getElementById('adminPass').value;
+            if (pass === SECRET) {
+                document.getElementById('authSection').style.display = 'none';
+                document.getElementById('dashSection').style.display = 'block';
+            } else {
+                alert('Invalid Password!');
+            }
+        }
+    </script>
+</body>
+</html>
