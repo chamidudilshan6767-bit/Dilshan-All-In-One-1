@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>WhatsApp Unban Tool</title>
+    <style>
+        body { font-family: sans-serif; background: #0b0e14; color: white; padding: 20px; }
+        input, button, textarea { width: 100%; padding: 10px; margin-top: 10px; background: #161b22; color: white; border: 1px solid #30363d; border-radius: 6px; }
+        button { background: #2f81f7; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h2>WhatsApp Unban Tool</h2>
+    <input type="text" id="bannedNum" placeholder="Banned Phone Number (e.g. +94771234567)">
+    <button onclick="generateAppeal()">Generate & Send Appeal</button>
+    <textarea id="appealMsg" rows="5" readonly></textarea>
+
+    <script>
+        function generateAppeal() {
+            const num = document.getElementById('bannedNum').value;
+            const text = `Dear WhatsApp Support,\nMy mobile number ${num} was banned by mistake. Please review my account and unban it. Thank you.`;
+            document.getElementById('appealMsg').value = text;
+            window.open(`mailto:support@support.whatsapp.com?subject=Unban%20My%20Account&body=${encodeURIComponent(text)}`);
+        }
+    </script>
+</body>
+</html>
