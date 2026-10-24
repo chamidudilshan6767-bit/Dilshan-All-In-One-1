@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dilshan All In One - Utility Toolbox</title>
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#0d1117">
+    <style>
+        :root {
+            --bg-color: #0b0e14;
+            --card-bg: #161b22;
+            --accent-color: #2f81f7;
+            --text-color: #c9d1d9;
+            --border-color: #30363d;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .container {
+            max-width: 500px;
+            width: 100%;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+        .header h1 {
+            color: #ffffff;
+            margin-bottom: 5px;
+        }
+        .header p {
+            color: #8b949e;
+            font-size: 14px;
+        }
+        .btn-install {
+            width: 100%;
+            background: #238636;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+        .card h3 {
+            margin-top: 0;
+            color: #ffffff;
+            font-size: 16px;
+        }
+        .card p {
+            font-size: 13px;
+            color: #8b949e;
+        }
+        .btn-open {
+            display: block;
+            width: 100%;
+            text-align: center;
+            background: var(--accent-color);
+            color: white;
+            text-decoration: none;
+            padding: 10px 0;
+            border-radius: 6px;
+            font-weight: 500;
+            margin-top: 10px;
+        }
+        .login-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(11, 14, 20, 0.95);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+        }
+        .login-box {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            text-align: center;
+            width: 80%;
+            max-width: 320px;
+        }
+        .login-box input {
+            width: 100%;
+            padding: 10px;
+            margin: 15px 0;
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+            background: #0d1117;
+            color: white;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="loginOverlay" class="login-overlay">
+        <div class="login-box">
+            <h2>WELCOME!</h2>
+            <p>Please enter your name to access the site:</p>
+            <input type="text" id="usernameInput" placeholder="Your Name...">
+            <button class="btn-install" onclick="loginUser()">ENTER SITE</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1>Dilshan All In One</h1>
+            <p>Utility Toolbox & Developer Hub</p>
+        </div>
+
+        <button class="btn-install" id="installBtn" onclick="installPwa()">INSTALL MAIN APP TO DEVICE</button>
+
+        <div class="card">
+            <h3>Admin Updates & Media</h3>
+            <p>View latest announcements and files shared by Admin.</p>
+            <a href="admin-updates.html" class="btn-open">Open Admin Feed</a>
+        </div>
+
+        <div class="card">
+            <h3>Photo to PDF Converter</h3>
+            <p>Convert your photos and images directly into PDF documents.</p>
+            <a href="photo-to-pdf.html" class="btn-open">Open Converter</a>
+        </div>
+
+        <div class="card">
+            <h3>WhatsApp DP Downloader</h3>
+            <p>Download full-resolution WhatsApp profile pictures easily.</p>
+            <a href="whatsapp-dp-downloader.html" class="btn-open">Open Tool</a>
+        </div>
+
+        <div class="card">
+            <h3>WhatsApp Status Saver</h3>
+            <p>Save and download WhatsApp status videos & photos.</p>
+            <a href="whatsapp-status-saver.html" class="btn-open">Open Tool</a>
+        </div>
+
+        <div class="card">
+            <h3>WhatsApp Unban Tool</h3>
+            <p>Generate official appeal emails to unban WhatsApp numbers fast.</p>
+            <a href="whatsapp-unban.html" class="btn-open">Open Tool</a>
+        </div>
+
+        <div class="card">
+            <h3>QR Code Generator</h3>
+            <p>Create custom QR codes with custom colors and style options.</p>
+            <a href="qr-generator.html" class="btn-open">Open Generator</a>
+        </div>
+
+        <div class="card">
+            <h3>Password Generator</h3>
+            <p>Generate strong custom passwords with custom options.</p>
+            <a href="password-generator.html" class="btn-open">Open Generator</a>
+        </div>
+
+        <div class="card">
+            <h3>TikTok Downloader</h3>
+            <p>Download TikTok videos in HD without watermark.</p>
+            <a href="tiktok-downloader.html" class="btn-open">Open Downloader</a>
+        </div>
+    </div>
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/sw.js');
+        }
+
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+        });
+
+        function installPwa() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+            } else {
+                alert('To install: Tap browser menu (3 dots) -> Add to Home Screen / Install App.');
+            }
+        }
+
+        function loginUser() {
+            const name = document.getElementById('usernameInput').value.trim();
+            if (name) {
+                localStorage.setItem('user_name', name);
+                document.getElementById('loginOverlay').style.display = 'none';
+            }
+        }
+
+        if (localStorage.getItem('user_name')) {
+            document.getElementById('loginOverlay').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
