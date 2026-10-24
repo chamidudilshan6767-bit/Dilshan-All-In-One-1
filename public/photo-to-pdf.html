@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photo to PDF - Dilshan All In One</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        body { font-family: sans-serif; background: #0b0e14; color: white; padding: 20px; text-align: center; }
+        input, button { margin: 15px 0; padding: 10px; border-radius: 6px; border: none; }
+        button { background: #2f81f7; color: white; font-weight: bold; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h2>Photo to PDF Converter</h2>
+    <input type="file" id="imageInput" accept="image/*" multiple><br>
+    <button onclick="convertToPDF()">Convert & Download PDF</button>
+
+    <script>
+        async function convertToPDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            const files = document.getElementById('imageInput').files;
+            
+            if (files.length === 0) return alert('Please select at least one image!');
+
+            for (let i = 0; i < files.length; i++) {
+                const imgData = await window.jsPDF.API.processFile ? files[i] : null;
+                const reader = new FileReader();
+                reader.readAsDataURL(files[i]);
+                await new Promise(resolve => {
+                    reader.onload = function(e) {
+                        if (i > 0) doc.addPage();
+                        doc.addImage(e.target.result, 'JPEG', 10, 10, 180, 160);
+                        resolve();
+                    }
+                });
+            }
+            doc.save("converted.pdf");
+        }
+    </script>
+</body>
+</html>
