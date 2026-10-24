@@ -1,0 +1,12 @@
+{
+  "name": "dilshan-all-in-one",
+  "version": "1.0.0",
+  "description": "Utility Toolbox & Developer Hub",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
