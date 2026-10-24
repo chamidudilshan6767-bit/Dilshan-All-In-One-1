@@ -2,25 +2,36 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WhatsApp Unban Tool</title>
     <style>
-        body { font-family: sans-serif; background: #0b0e14; color: white; padding: 20px; }
-        input, button, textarea { width: 100%; padding: 10px; margin-top: 10px; background: #161b22; color: white; border: 1px solid #30363d; border-radius: 6px; }
-        button { background: #2f81f7; font-weight: bold; }
+        body { font-family: sans-serif; background: #0d1117; color: #c9d1d9; padding: 20px 15px; display: flex; justify-content: center; }
+        .box { background: #161b22; border: 1px solid #30363d; border-radius: 10px; padding: 20px; width: 100%; max-width: 450px; }
+        a { color: #58a6ff; text-decoration: none; font-size: 13px; }
+        input, select { width: 100%; padding: 10px; margin-top: 8px; border-radius: 6px; border: 1px solid #30363d; background: #0d1117; color: white; box-sizing: border-box; }
+        button { width: 100%; padding: 10px; margin-top: 15px; background: #1f6feb; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; }
     </style>
 </head>
 <body>
-    <h2>WhatsApp Unban Tool</h2>
-    <input type="text" id="bannedNum" placeholder="Banned Phone Number (e.g. +94771234567)">
-    <button onclick="generateAppeal()">Generate & Send Appeal</button>
-    <textarea id="appealMsg" rows="5" readonly></textarea>
+    <div class="box">
+        <a href="index.html">← Back to Home</a>
+        <h2 style="color:#fff; text-align:center;">WHATSAPP UNBAN TOOL</h2>
+        
+        <label style="font-size:12px;">Banned Phone Number:</label>
+        <input type="text" id="phoneNum" placeholder="e.g. +94771234567">
+
+        <label style="font-size:12px; margin-top:10px; display:block;">Your Contact Email Address:</label>
+        <input type="email" placeholder="e.g. yourname@gmail.com">
+
+        <button onclick="sendAppeal()">GENERATE & SEND EMAIL</button>
+    </div>
 
     <script>
-        function generateAppeal() {
-            const num = document.getElementById('bannedNum').value;
-            const text = `Dear WhatsApp Support,\nMy mobile number ${num} was banned by mistake. Please review my account and unban it. Thank you.`;
-            document.getElementById('appealMsg').value = text;
-            window.open(`mailto:support@support.whatsapp.com?subject=Unban%20My%20Account&body=${encodeURIComponent(text)}`);
+        function sendAppeal() {
+            const num = document.getElementById('phoneNum').value;
+            if(!num) return alert('Please enter banned phone number!');
+            const text = `Dear WhatsApp Support,\nMy number ${num} was banned. Please review and unban it. Thank you.`;
+            window.open(`mailto:support@support.whatsapp.com?subject=Unban%20Request&body=${encodeURIComponent(text)}`);
         }
     </script>
 </body>
