@@ -5,22 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WhatsApp DP Downloader</title>
     <style>
-        body { font-family: sans-serif; background: #0b0e14; color: white; padding: 20px; text-align: center; }
-        input, button { padding: 10px; margin: 10px; width: 80%; border-radius: 6px; border: 1px solid #30363d; }
-        button { background: #238636; color: white; font-weight: bold; }
+        body { font-family: sans-serif; background: #0d1117; color: #c9d1d9; padding: 20px 15px; display: flex; justify-content: center; }
+        .box { background: #161b22; border: 1px solid #30363d; border-radius: 10px; padding: 20px; width: 100%; max-width: 450px; text-align: center; }
+        a { color: #58a6ff; text-decoration: none; font-size: 13px; }
+        input { width: 100%; padding: 10px; margin: 15px 0; border-radius: 6px; border: 1px solid #30363d; background: #0d1117; color: white; box-sizing: border-box; }
+        button { width: 100%; padding: 10px; background: #238636; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; }
     </style>
 </head>
 <body>
-    <h2>WhatsApp DP Downloader</h2>
-    <p>Enter WhatsApp Phone Number with Country Code:</p>
-    <input type="text" id="phoneNum" placeholder="e.g. 94712345678">
-    <button onclick="fetchDP()">Get Profile Picture</button>
+    <div class="box">
+        <a href="index.html">← Back to Home</a>
+        <h2 style="color:#fff;">WHATSAPP DP DOWNLOADER</h2>
+        <input type="text" id="dpNum" placeholder="Phone Number with Country Code (e.g. 94771234567)">
+        <button onclick="getDP()">GET PROFILE PICTURE</button>
+    </div>
 
     <script>
-        function fetchDP() {
-            const num = document.getElementById('phoneNum').value;
-            if(!num) return alert('Please enter phone number!');
-            alert('Opening WhatsApp direct link to fetch profile picture info...');
+        function getDP() {
+            const num = document.getElementById('dpNum').value;
+            if(!num) return alert('Enter phone number!');
             window.open(`https://wa.me/${num}`, '_blank');
         }
     </script>
