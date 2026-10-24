@@ -1,14 +1,13 @@
-const express = require('express');
-const path = require('path');
-const app = express();
-
-app.use(express.static(path.join(__dirname, 'public')));
-
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+self.addEventListener('install', (e) => {
+  e.waitUntil(
+    caches.open('dilshan-app-v3').then((cache) => {
+      return cache.addAll(['/']);
+    })
+  );
 });
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
+self.addEventListener('fetch', (e) => {
+  e.respondWith(
+    caches.match(e.request).then((res) => res || fetch(e.request))
+  );
 });
